@@ -84,3 +84,41 @@ async def login(request: LoginRequest):
             status_code=401, 
             detail="Invalid username or password"
         )
+
+@app.post("/patients")
+async def create_patient(record: schemas.PatientRecordCreate,
+db: Session = Depends(get_db)):
+    return crud.create_patient_record(db=db, record=record)
+
+ 
+
+@app.get("/patients")
+async def read_patients(skip: int = 0, limit: int = 100,
+db: Session = Depends(get_db)):
+    return crud.get_patient_records(db, skip=skip, limit=limit)
+
+ 
+
+@app.put("/patients/{record_id}")
+async def update_patient(record_id: int, record: schemas.PatientRecordCreate,
+db: Session = Depends(get_db)):
+    return crud.update_patient_record(db=db, record_id=record_id, record=record)
+
+ 
+
+@app.delete("/patients/{record_id}")
+async def delete_patient(record_id: int, db: Session = Depends(get_db)):
+    crud.delete_patient_record(db=db, record_id=record_id)
+    return {"message": "Patient record deleted successfully"}
+
+@app.put("/appointments/{appointment_id}")
+async def edit_appointment(appointment_id: int, form_data: schemas.AppointmentForm,
+db: Session = Depends(get_db)):
+    updated_data = crud.update_appointment(db=db, appointment_id=appointment_id,
+    appointment=form_data)
+    return {"status": "success", "data": updated_data}
+ 
+@app.delete("/appointments/{appointment_id}")
+async def remove_appointment(appointment_id: int, db: Session = Depends(get_db)):
+    crud.delete_appointment(db=db, appointment_id=appointment_id)
+    return {"status": "success", "message": "Appointment deleted successfully"}

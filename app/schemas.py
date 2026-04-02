@@ -14,3 +14,17 @@ class AppointmentForm(BaseModel):
 class LoginRequest(BaseModel):
     username: str
     password: str
+
+class PatientRecordBase(BaseModel):
+    hn_number: str
+    patient_name: str
+    exam_date: str
+    diagnosis: str
+ 
+class PatientRecordCreate(PatientRecordBase):
+    pass
+ 
+class PatientRecord(PatientRecordBase):
+    id: int
+    class Config:
+        orm_mode = True

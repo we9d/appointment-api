@@ -14,3 +14,12 @@ class Appointment(Base):
     maritalStatus = Column(String)
     appointmentDate = Column(String)
     appointmentTime = Column(String)
+
+class PatientRecord(Base):
+    __tablename__ = "patient_records"
+ 
+    id = Column(Integer, primary_key=True, index=True)
+    hn_number = Column(String, index=True)
+    patient_name = Column(String)
+    exam_date = Column(String)
+    diagnosis = Column(String)
