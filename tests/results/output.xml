@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.2 (Python 3.10.20 on linux)" generated="2026-04-22T09:14:40.634890" rpa="false" schemaversion="5">
+<suite id="s1" name="Tests" source="/tests">
+<suite id="s1-s1" name="Api Test" source="/tests/api_test.robot">
+<test id="s1-s1-t1" name="Verify Get All Patients Successfully" line="10">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-22T09:14:41.674887" level="INFO">Creating Session using : alias=api_session, url=http://api-server:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api_session</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-22T09:14:41.673118" elapsed="0.002391"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-04-22T09:14:41.733441" level="WARN">Retrying (RetryAdapter(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='api-server', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /patients</msg>
+<msg time="2026-04-22T09:14:41.937144" level="WARN">Retrying (RetryAdapter(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='api-server', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /patients</msg>
+<msg time="2026-04-22T09:14:42.340944" level="WARN">Retrying (RetryAdapter(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='api-server', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /patients</msg>
+<msg time="2026-04-22T09:14:42.347661" level="FAIL">ConnectionError: HTTPConnectionPool(host='api-server', port=8000): Max retries exceeded with url: /patients (Caused by NewConnectionError("HTTPConnection(host='api-server', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</msg>
+<var>${response}</var>
+<arg>api_session</arg>
+<arg>/patients</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2026-04-22T09:14:41.677910" elapsed="0.687312">ConnectionError: HTTPConnectionPool(host='api-server', port=8000): Max retries exceeded with url: /patients (Caused by NewConnectionError("HTTPConnection(host='api-server', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>200</arg>
+<arg>${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="NOT RUN" start="2026-04-22T09:14:42.366021" elapsed="0.000122"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\nResponse Data: ${response.json()}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2026-04-22T09:14:42.366567" elapsed="0.000079"/>
+</kw>
+<doc>ทดสอบการดึงข้อมูลคนไข้ทั้งหมดจาก API</doc>
+<status status="FAIL" start="2026-04-22T09:14:41.668628" elapsed="0.698753">ConnectionError: HTTPConnectionPool(host='api-server', port=8000): Max retries exceeded with url: /patients (Caused by NewConnectionError("HTTPConnection(host='api-server', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+</test>
+<test id="s1-s1-t2" name="Verify Create New Patient" line="17">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-22T09:14:42.372581" level="INFO">${payload} = {'hn_number': 'HN999', 'patient_name': 'Robot Tester', 'exam_date': '2026-03-31', 'diagnosis': 'Automated Testing'}</msg>
+<var>${payload}</var>
+<arg>hn_number=HN999</arg>
+<arg>patient_name=Robot Tester</arg>
+<arg>exam_date=2026-03-31</arg>
+<arg>diagnosis=Automated Testing</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-22T09:14:42.370051" elapsed="0.002654"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-22T09:14:42.374163" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-22T09:14:42.373186" elapsed="0.001055"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-22T09:14:42.381554" level="WARN">Retrying (RetryAdapter(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='api-server', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /patients</msg>
+<msg time="2026-04-22T09:14:42.586161" level="WARN">Retrying (RetryAdapter(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='api-server', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /patients</msg>
+<msg time="2026-04-22T09:14:42.991516" level="WARN">Retrying (RetryAdapter(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='api-server', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /patients</msg>
+<msg time="2026-04-22T09:14:42.995523" level="FAIL">ConnectionError: HTTPConnectionPool(host='api-server', port=8000): Max retries exceeded with url: /patients (Caused by NewConnectionError("HTTPConnection(host='api-server', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</msg>
+<var>${response}</var>
+<arg>api_session</arg>
+<arg>/patients</arg>
+<arg>json=${payload}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2026-04-22T09:14:42.374686" elapsed="0.622354">ConnectionError: HTTPConnectionPool(host='api-server', port=8000): Max retries exceeded with url: /patients (Caused by NewConnectionError("HTTPConnection(host='api-server', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>200</arg>
+<arg>${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="NOT RUN" start="2026-04-22T09:14:42.997613" elapsed="0.000079"/>
+</kw>
+<doc>ทดสอบการเพิ่มข้อมูลคนไข้ใหม่ผ่าน POST</doc>
+<status status="FAIL" start="2026-04-22T09:14:42.368274" elapsed="0.629925">ConnectionError: HTTPConnectionPool(host='api-server', port=8000): Max retries exceeded with url: /patients (Caused by NewConnectionError("HTTPConnection(host='api-server', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+</test>
+<status status="FAIL" start="2026-04-22T09:14:40.761551" elapsed="2.238552"/>
+</suite>
+<status status="FAIL" start="2026-04-22T09:14:40.644150" elapsed="2.359782"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="2" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Tests" id="s1" pass="0" fail="2" skip="0">Tests</stat>
+<stat name="Api Test" id="s1-s1" pass="0" fail="2" skip="0">Tests.Api Test</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2026-04-22T09:14:41.733441" level="WARN">Retrying (RetryAdapter(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='api-server', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /patients</msg>
+<msg time="2026-04-22T09:14:41.937144" level="WARN">Retrying (RetryAdapter(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='api-server', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /patients</msg>
+<msg time="2026-04-22T09:14:42.340944" level="WARN">Retrying (RetryAdapter(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='api-server', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /patients</msg>
+<msg time="2026-04-22T09:14:42.381554" level="WARN">Retrying (RetryAdapter(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='api-server', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /patients</msg>
+<msg time="2026-04-22T09:14:42.586161" level="WARN">Retrying (RetryAdapter(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='api-server', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /patients</msg>
+<msg time="2026-04-22T09:14:42.991516" level="WARN">Retrying (RetryAdapter(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='api-server', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /patients</msg>
+</errors>
+</robot>
